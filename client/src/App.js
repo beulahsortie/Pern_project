@@ -1,5 +1,5 @@
 import React from "react"
-
+import theaxios from "./apis/theaxios";
 class App extends React.Component {
   state = {
     name: ""
@@ -7,16 +7,27 @@ class App extends React.Component {
 
   componentDidMount() {
     
+    const fetchData = async () => {
+      // try {
+        const response = await theaxios.get("/first");
+        console.log(response.data);
+        this.setState({ name: response.data.name })
+      // } catch (err) {
+      //   console.log("catch error");
+      // }
+    };
 
-    fetch("http://localhost:3000/first")
-      .then(res => { 
-        console.log('Response:', res)
-      return res.json();})
-      .then(data => {
-        console.log('data:', data)
-        this.setState({ name: data.name })})
+    fetchData();
 
-      console.log(this.state.name);
+    // fetch("http://localhost:4050/first")
+    //   .then(res => { 
+    //     console.log('Response:', res)
+    //   return res.json();})
+    //   .then(data => {
+    //     console.log('data:', data)
+    //     this.setState({ name: data.name })})
+
+    //   console.log(this.state.name);
   }
 
   render() {
